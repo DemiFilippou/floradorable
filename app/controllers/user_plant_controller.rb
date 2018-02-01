@@ -1,6 +1,7 @@
 class UserPlantController < ApplicationController
   # TODO: current_user
   # TODO: new? edit?
+  before_action :find_user_plant, only: [:index, :show]
 
   # render JSON of all the current user's plants
   def index
@@ -9,7 +10,7 @@ class UserPlantController < ApplicationController
   end
 
   def create
-    @user_plant = UserPlant.new(params[:user_plant], user: current_user)
+    @user_plant = UserPlant.new(user_plant_params, user: current_user)
     if @user_plant.save
       redirect_to @user_plant
     else
@@ -20,15 +21,13 @@ class UserPlantController < ApplicationController
   end
 
   def show
-    user_plant = current_user.plants.find(params[:id])
-    render json: user_plant
+    render json: @user_plant
   end
 
   # update a plant
   def update
-    user_plant = current_user.plants.find(params[:id])
-    user_plant.update!(user_plant_params)
-    redirect_to user_plant 
+    @user_plant.update!(user_plant_params)
+    redirect_to @user_plant 
   end
 
   # deletes a user plant
@@ -41,5 +40,9 @@ class UserPlantController < ApplicationController
     params.require(:user_plant).permit(
       :pot_size, :last_watered, :image, :indoors
     )
+  end
+
+  def find_user_plant
+    @user_plant = UserPlant.find(params[:id])
   end
 end
