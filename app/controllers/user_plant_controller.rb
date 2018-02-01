@@ -1,5 +1,6 @@
 class UserPlantController < ApplicationController
   # TODO: current_user
+  # TODO: new? edit?
 
   # render JSON of all the current user's plants
   def index
@@ -8,7 +9,7 @@ class UserPlantController < ApplicationController
   end
 
   def create
-    @user_plant = UserPlant.new(params[:user_plant])
+    @user_plant = UserPlant.new(params[:user_plant], user: current_user)
     if @user_plant.save
       redirect_to @user_plant
     else
@@ -18,12 +19,21 @@ class UserPlantController < ApplicationController
     end
   end
 
+  def show
+    user_plant = current_user.plants.find(params[:id])
+    render json: user_plant
+  end
+
+  # update a plant
   def update
     user_plant = current_user.plants.find(params[:id])
     user_plant.update!(user_plant_params)
-    # TODO: in model
-    # if you change pot_size --> change water_frequency
     redirect_to user_plant 
+  end
+
+  # deletes a user plant
+  def destroy
+    UserPlant.destroy(params[:id])
   end
 
   private
