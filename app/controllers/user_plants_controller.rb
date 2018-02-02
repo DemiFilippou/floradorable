@@ -1,4 +1,4 @@
-class UserPlantController < ApplicationController
+class UserPlantsController < ApplicationController
   # TODO: current_user
   # TODO: new? edit?
   before_action :find_user_plant, only: [:index, :show]
