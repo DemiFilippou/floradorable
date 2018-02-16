@@ -10,21 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180202022435) do
+ActiveRecord::Schema.define(version: 20180216022142) do
+
+  create_table "light_indoors_plants", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "plant_id", null: false
+    t.bigint "light_indoor_id", null: false
+  end
+
+  create_table "light_outdoors_plants", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "plant_id", null: false
+    t.bigint "light_outdoor_id", null: false
+  end
 
   create_table "plants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "scientific_name"
-    t.string "light_indoors"
-    t.string "light_outdoors"
-    t.string "water"
-    t.string "potting"
+    t.integer "water"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "potting"
   end
 
   create_table "user_plants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "pot_size"
+    t.integer "pot_size"
     t.datetime "last_watered"
     t.integer "water_frequency"
     t.string "image"
@@ -43,6 +51,7 @@ ActiveRecord::Schema.define(version: 20180202022435) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end

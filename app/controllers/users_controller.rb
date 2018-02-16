@@ -5,12 +5,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      # TODO: redirect to login? log in for them and go to home page?
-      #redirect_to user
+      give_token
     else
-      # This line overrides the default rendering behavior, which
-      # would have been to render the "create" view.
-      #render "new"
+      render status: :error, json: {
+        message: @user.errors 
+      }.to_json
     end
   end
 
@@ -57,7 +56,9 @@ class UsersController < ApplicationController
   end
 
   def give_token
-    token = {token: Auth.issue({user: @user.id})}
-    render json: token
+    token = Auth.issue({user: @user.id})
+    render json: {
+      token: token
+    }
   end
 end

@@ -1,7 +1,7 @@
 class UserPlantsController < ApplicationController
   # TODO: current_user
   # TODO: new? edit?
-  before_action :find_user_plant, only: [:index, :show]
+  before_action :find_user_plant, only: [:update, :show]
 
   # render JSON of all the current user's plants
   def index
