@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180216022142) do
+ActiveRecord::Schema.define(version: 20180216190557) do
 
   create_table "light_indoors_plants", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "plant_id", null: false
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20180216022142) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "nickname"
     t.index ["plant_id"], name: "index_user_plants_on_plant_id"
     t.index ["user_id"], name: "index_user_plants_on_user_id"
   end

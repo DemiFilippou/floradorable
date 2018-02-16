@@ -6,7 +6,9 @@ class UserPlantsController < ApplicationController
   # render JSON of all the current user's plants
   def index
     @user_plants = UserPlant.where(user: current_user)
-    render json: @user_plants
+    render json: @user_plants,
+      include: { plant: { only: [:name, :water, :light_indoors, :light_outdoors] } },
+      except: [:updated_at, :created_at, :user_id]
   end
 
   def create
@@ -21,7 +23,9 @@ class UserPlantsController < ApplicationController
   end
 
   def show
-    render json: @user_plant
+    render json: @user_plant,
+      include: { plant: { only: [:name, :water, :light_indoors, :light_outdoors] } },
+      except: [:updated_at, :created_at, :user_id]
   end
 
   # update a plant

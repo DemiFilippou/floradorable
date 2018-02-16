@@ -1,7 +1,9 @@
 class Plant < ApplicationRecord
   has_many :user_plants
 
-  attribute [:light_outdoors, :light_indoors, :potting]
+  attribute :light_outdoors
+  attribute :light_indoors
+  
   # enums
   as_enum :light_indoors, [ :low, :medium, :high ], accessor: :join_table
   as_enum :light_outdoors, [ :shade, :part_sun, :sun ], accessor: :join_table
