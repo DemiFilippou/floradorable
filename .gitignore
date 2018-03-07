@@ -7,6 +7,9 @@
 # Ignore swap files
 *.swp
 
+# Ignore DS store files
+.DS_Store
+
 # Ignore secrets
 /config/local_env.yml
 /config/secrets.yml

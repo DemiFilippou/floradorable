@@ -12,13 +12,12 @@ class UserPlantsController < ApplicationController
   end
 
   def create
-    @user_plant = UserPlant.new(user_plant_params, user: current_user)
+    @user_plant = UserPlant.new(user_plant_params.merge({user: current_user}))
     if @user_plant.save
-      redirect_to @user_plant
+      show
+      #redirect_to @user_plant
     else
-      # This line overrides the default rendering behavior, which
-      # would have been to render the "create" view.
-      render "new"
+      render json: { :errors => @user_plant.errors.full_messages }
     end
   end
 
@@ -31,7 +30,8 @@ class UserPlantsController < ApplicationController
   # update a plant
   def update
     @user_plant.update!(user_plant_params)
-    redirect_to @user_plant 
+    show
+    #redirect_to @user_plant 
   end
 
   # deletes a user plant
@@ -42,7 +42,7 @@ class UserPlantsController < ApplicationController
   private
   def user_plant_params
     params.require(:user_plant).permit(
-      :pot_size, :last_watered, :image, :indoors
+      :pot_size, :last_watered, :image, :indoors, :nickname, :plant_id
     )
   end
 
