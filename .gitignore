@@ -7,6 +7,9 @@
 # Ignore swap files
 *.swp
 
+import.rb
+*.csv
+
 # Ignore DS store files
 .DS_Store
 

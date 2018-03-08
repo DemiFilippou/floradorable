@@ -66,6 +66,8 @@ GEM
     erubi (1.7.0)
     execjs (2.7.0)
     ffi (1.9.18)
+    fuzzily (0.3.3)
+      activerecord (>= 2.3.17)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     httparty (0.15.6)
@@ -189,6 +191,7 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
+  fuzzily
   httparty
   jbuilder (~> 2.5)
   jwt

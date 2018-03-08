@@ -4,4 +4,5 @@ Rails.application.routes.draw do
     resources :user_plants
   end
   post 'login', to: 'users#login'
+  get '/search', to: 'plants#search'
 end
