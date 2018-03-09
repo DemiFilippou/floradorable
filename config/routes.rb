@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     resources :user_plants do
       get 'water'
     end
+
+    resources :pushies, only: [:create]
   end
 
   post 'login', to: 'users#login'

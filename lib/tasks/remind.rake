@@ -1,6 +1,17 @@
+require 'httparty'
+
 desc "Remind users to water their plant"
 task :remind  => [ :environment ] do
   User.all.each do |user|
+    # get all the device ids we want to send the notifications to
+    device_ids = []
+    user.pushies.each do |pushy|
+      device_ids.push(pushy.token)
+    end
+    if device_ids.empty?
+      next
+    end
+
     # plant names and types to be watered
     # [['Orchid','Bob']...]
     plant_names = []
@@ -35,7 +46,16 @@ task :remind  => [ :environment ] do
         end
       end
     end
-
-      puts notification
+    
+    puts notification
+    puts device_ids
+    req_body = {
+      "to": device_ids,
+      "data": {
+        "message": notification
+      }
+    }
+    puts req_body
+    #HTTParty.post("https://api.pushy.me/push?api_key=#{ENV["PUSHY_TOKEN"]}", body: req_body)
   end
 end
