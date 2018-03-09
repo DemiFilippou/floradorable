@@ -17,21 +17,38 @@ class UserPlantsController < ApplicationController
       show
       #redirect_to @user_plant
     else
-      render json: { :errors => @user_plant.errors.full_messages }
     end
   end
 
   def show
-    render json: @user_plant,
-      include: { plant: { only: [:name, :water, :light_indoors, :light_outdoors] } },
-      except: [:updated_at, :created_at, :user_id]
+    if @user_plant.user == current_user
+      render json: @user_plant,
+        include: { plant: { only: [:name, :water, :light_indoors, :light_outdoors] } },
+        except: [:updated_at, :created_at, :user_id]
+    else
+      render json: { :errors => "You are not authorized to view this." }
+    end
   end
 
   # update a plant
   def update
-    @user_plant.update!(user_plant_params)
-    show
-    #redirect_to @user_plant 
+    if @user_plant.user == current_user
+      @user_plant.update(user_plant_params)
+      show
+    else
+      render json: { :errors => "You are not authorized to do this." }
+    end
+  end
+
+  # water a plant
+  def water
+    @user_plant = UserPlant.find(params[:user_plant_id])
+    if @user_plant.user == current_user
+      @user_plant.update(last_watered: DateTime.now)
+      show
+    else
+      render json: { :errors => "You are not authorized to do this." }
+    end
   end
 
   # deletes a user plant

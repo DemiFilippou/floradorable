@@ -13,9 +13,9 @@ class UserPlant < ApplicationRecord
     pot_size_num = UserPlant.pot_sizes[self.pot_size]
     water_num = Plant.waters[self.plant.water]
 
-    # exponential growth: water_frequency = 2(1 - 0.15)^x
+    # exponential growth: water_frequency = 2(1 + 0.15)^x
     # x = # representing pot size * # representing water needs
-    water_frequency = (2 * (0.85**(pot_size_num *  water_num))).round
+    water_frequency = (2 * (1.15**(pot_size_num *  water_num))).round
     self.water_frequency = water_frequency
   end
 end

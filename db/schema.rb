@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180307170521) do
+ActiveRecord::Schema.define(version: 20180216190557) do
 
   create_table "light_indoors_plants", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "plant_id", null: false
@@ -29,16 +29,6 @@ ActiveRecord::Schema.define(version: 20180307170521) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "potting"
-  end
-
-  create_table "trigrams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "trigram", limit: 3
-    t.integer "score", limit: 2
-    t.integer "owner_id"
-    t.string "owner_type"
-    t.string "fuzzy_field"
-    t.index ["owner_id", "owner_type", "fuzzy_field", "trigram", "score"], name: "index_for_match"
-    t.index ["owner_id", "owner_type"], name: "index_by_owner"
   end
 
   create_table "user_plants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
