@@ -1,5 +1,5 @@
 # Cron jobs
-every 1.day, at: '8pm' do
+every 1.hour do
   rake "remind"
 end
 
