@@ -12,6 +12,8 @@ module Floradorable
     config.load_defaults 5.1
     # Add lib directory to autoload path
     config.autoload_paths << Rails.root.join('lib')
+    config.eager_load_paths << Rails.root.join('lib')
+
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
