@@ -1,5 +1,5 @@
 # Cron jobs
-every 1.hour do
+every 3.hours do
   rake "remind"
 end
 
