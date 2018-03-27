@@ -5,7 +5,7 @@ default: &default
   username: <%= ENV["DB_USERNAME"] %>
   password: <%= ENV["DB_PW"] %>
   database: <%= ENV["DB_PROD"] %>
-  host: <%= ENV["DB_HOST"] %> 
+  host: <%= ENV["DB_HOST_PROD"] %> 
   port: <%= ENV["DB_PORT"] %> 
 
 development:

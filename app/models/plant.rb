@@ -7,7 +7,7 @@ class Plant < ApplicationRecord
   # enums
   as_enum :light_indoors, [ :low, :medium, :high ], accessor: :join_table
   as_enum :light_outdoors, [ :shade, :part_sun, :sun ], accessor: :join_table
-  enum water: { low: 1, medium: 1.5, high: 2 } # high = keep moist
+  enum water: { low: 3, medium: 2, high: 1 } # high = keep moist
   enum potting: [ :soil, :peat_moss, :vermiculite, :pine_bark ]
 
   def self.search(query)

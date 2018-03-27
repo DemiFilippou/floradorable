@@ -21,7 +21,7 @@ task :remind  => [ :environment ] do
         plant_names.push([up.plant.name, up.nickname])
       # If the last watered date at midnight + # days between waterings is on
       # or before today, the plant needs water --> notify
-      elsif up.last_watered.midnight + up.water_frequency.days <= Date.today
+      elsif up.last_watered + up.water_frequency.days <= Date.today
         plant_names.push([up.plant.name, up.nickname])
       end
     end
@@ -52,10 +52,13 @@ task :remind  => [ :environment ] do
     req_body = {
       "to": device_ids,
       "data": {
-        "message": notification
+        "title": "Floradorable",
+        "message": notification,
+        "url": "https://floradorable.demifili.com",
+        "image": "https://floradorable.demifili.com/favicon-32x32.png"
       }
     }
     puts req_body
-    #HTTParty.post("https://api.pushy.me/push?api_key=#{ENV["PUSHY_TOKEN"]}", body: req_body)
+    HTTParty.post("https://api.pushy.me/push?api_key=#{ENV["PUSHY_TOKEN"]}", body: req_body)
   end
 end
